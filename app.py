@@ -66,7 +66,7 @@ if refresh:
     fig = go.Figure(
         data=[go.Candlestick(
             x=stock_df['time'],
-            open=stock_df['opem'],
+            open=stock_df['open'],
             high=stock_df['high'],
             low=stock_df['low'],
             close=stock_df['close'])
