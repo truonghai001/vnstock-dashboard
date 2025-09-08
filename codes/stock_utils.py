@@ -24,7 +24,7 @@ def connect_postgresql():
 
 
 @st.cache_data(ttl=3600) # cache for 1 hour
-def get_stock_history_from_db(engine, ticker: str, start: str, end: str):
+def get_stock_history_from_db(_engine, ticker: str, start: str, end: str):
     """
     get_stock_history_from_db
     Get the VN Stock history from database
@@ -51,7 +51,7 @@ def get_stock_history_from_db(engine, ticker: str, start: str, end: str):
 
     df = None
     try:
-        with engine.connect() as connection:
+        with _engine.connect() as connection:
             # Execute the query with proper parameter binding
             df = pd.read_sql_query(
                 sql=text(get_stock_query),
@@ -68,7 +68,7 @@ def get_stock_history_from_db(engine, ticker: str, start: str, end: str):
 
 
 @st.cache_data(ttl=3600) # cache for 1 hour
-def get_list_of_watch_stocks(engine):
+def get_list_of_watch_stocks(_engine):
     """
     Get list of watch stocks from db
     """
@@ -84,7 +84,7 @@ def get_list_of_watch_stocks(engine):
     """
         
     result_select = list()
-    with engine.connect() as connection:
+    with _engine.connect() as connection:
         # Example: SELECT query
         query_select = text(select_query)
         result_select = [f"{row.ticker} - {row.name}" for row in connection.execute(query_select)]
