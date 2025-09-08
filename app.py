@@ -38,8 +38,6 @@ with st.sidebar:
     select_dates = st.date_input(
         "Select Start & End Date: ",
         (start_date, end_date),
-        start_date,
-        end_date,
         format="YYYY-MM-DD"
     )
     
