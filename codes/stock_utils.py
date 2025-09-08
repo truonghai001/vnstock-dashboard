@@ -23,6 +23,7 @@ def connect_postgresql():
 
 
 
+@st.cache_data(ttl=3600) # cache for 1 hour
 def get_stock_history_from_db(engine, ticker: str, start: str, end: str):
     """
     get_stock_history_from_db
@@ -66,6 +67,7 @@ def get_stock_history_from_db(engine, ticker: str, start: str, end: str):
 
 
 
+@st.cache_data(ttl=3600) # cache for 1 hour
 def get_list_of_watch_stocks(engine):
     """
     Get list of watch stocks from db
