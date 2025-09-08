@@ -44,19 +44,23 @@ with st.sidebar:
         format="YYYY-MM-DD"
     )
     
+    # Refresh button
+    refresh = st.button("Refresh")
+    
     
 
-st.write("Select Dates: ", select_dates)
-st.write("Stock ticker: ", selected_stock)
+if refresh:
+    st.write("Select Dates: ", select_dates)
+    st.write("Stock ticker: ", selected_stock)
 
-# Get parameters from sidebar
-ticker = selected_stock[:3]
-start_date = select_dates[0].strftime('%Y-%m-%d')
-end_date = select_dates[1].strftime('%Y-%m-%d')
+    # Get parameters from sidebar
+    ticker = selected_stock[:3]
+    start_date = select_dates[0].strftime('%Y-%m-%d')
+    end_date = select_dates[1].strftime('%Y-%m-%d')
 
-st.write("Start Date: ", start_date)
-st.write("End Date: ", end_date)
+    st.write("Start Date: ", start_date)
+    st.write("End Date: ", end_date)
 
-stock_df = get_stock_history_from_db(engine, ticker, start_date, end_date)
-st.dataframe(stock_df)
+    stock_df = get_stock_history_from_db(engine, ticker, start_date, end_date)
+    st.dataframe(stock_df)
 
