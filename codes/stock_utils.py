@@ -13,6 +13,7 @@ DB_PORTNUMBER = st.secrets["DB_PORTNUMBER"]
 DB_NAME = st.secrets["DB_NAME"]
 
 
+@st.cache_data(ttl=3600) # cache for 1 hour
 def connect_postgresql():
     # Create a connection string
     conn_string = f"postgresql+psycopg2://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOSTNAME}:{DB_PORTNUMBER}/{DB_NAME}?sslmode=require"
