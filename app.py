@@ -65,11 +65,11 @@ if refresh:
     # Create price chart with selected indicator
     fig = go.Figure(
         data=[go.Candlestick(
-            x=stock_df['Date'],
-            open=stock_df['Open'],
-            high=stock_df['High'],
-            low=stock_df['Low'],
-            close=stock_df['Close'])
+            x=stock_df['time'],
+            open=stock_df['opem'],
+            high=stock_df['high'],
+            low=stock_df['low'],
+            close=stock_df['close'])
     ])
     st.plotly_chart(fig, use_container_width=True)
 
