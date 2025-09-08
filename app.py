@@ -58,19 +58,49 @@ if refresh:
     st.write(f"Date Range: {start_date} - {end_date}")
     st.write("Stock ticker: ", selected_stock)
 
+    # get list of stock history
     stock_df = get_stock_history_from_db(engine, ticker, start_date, end_date)
-    st.dataframe(stock_df)
+    
+    with st.expander("Data Table"):
+        st.dataframe(stock_df)
     
     st.subheader("Candlestick Plots")
     # Create price chart with selected indicator
-    fig = go.Figure(
-        data=[go.Candlestick(
-            x=stock_df['time'],
-            open=stock_df['open'],
-            high=stock_df['high'],
-            low=stock_df['low'],
-            close=stock_df['close'])
-    ])
+    fig = go.Figure()
+    
+    # Add candle stick
+    fig.add_trace(go.Candlestick(
+        x=stock_df['time'],
+        open=stock_df['open'],
+        high=stock_df['high'],
+        low=stock_df['low'],
+        close=stock_df['close']
+    ))
+    
+    # Add price line
+    fig.add_trace(go.Scatter(
+        x=stock_df['time'],
+        y=stock_df['close'],
+        mode='lines',
+        name='Close Price',
+        line=dict(color='blue')
+    ))
+    
+    # Set up layout with dual y-axes
+    fig.update_layout(
+        title=f"{ticker} - Start {start_date} to {end_date}",
+        xaxis_title="Date",
+        yaxis_title="Price",
+        legend=dict(
+            orientation="h",
+            yanchor="bottom",
+            y=1.02,
+            xanchor="right",
+            x=1
+        ),
+        height=600
+    )
+
     st.plotly_chart(fig, use_container_width=True)
 
     
