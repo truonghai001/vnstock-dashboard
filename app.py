@@ -23,8 +23,8 @@ st.set_page_config(
 st.write("#📈 VN Stock Dashboard")
 
 today = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
-end_date = (today + timedelta.days(-1)).strftime('%Y-%m-%d')
-start_date = (today + timedelta.days(DAY_INTERVAL)).strftime('%Y-%m-%d')
+end_date = (today + timedelta(days=-1)).strftime('%Y-%m-%d')
+start_date = (today + timedelta(days=DAY_INTERVAL)).strftime('%Y-%m-%d')
 
 # sidebar setting
 with st.sidebar:
