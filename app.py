@@ -23,8 +23,8 @@ st.set_page_config(
 st.write("#📈 VN Stock Dashboard")
 
 today = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
-end_date = (today + timedelta(days=-1)).strftime('%Y-%m-%d')
-start_date = (today + timedelta(days=DAY_INTERVAL)).strftime('%Y-%m-%d')
+sb_end_date = (today + timedelta(days=-1)).strftime('%Y-%m-%d')
+sb_start_date = (today + timedelta(days=DAY_INTERVAL)).strftime('%Y-%m-%d')
 min_date = (today + timedelta(days=BACK_NUMBER_OF_YEARS*365)).strftime('%Y-%m-%d')
 
 # sidebar setting
@@ -38,14 +38,22 @@ with st.sidebar:
     # Start & End date select box
     select_dates = st.date_input(
         "Select Start & End Date: ",
-        (start_date, end_date),
-        min_date, end_date,
+        (sb_start_date, sb_end_date),
+        min_date, 
+        today.strftime('%Y-%m-%d'),
         format="YYYY-MM-DD"
     )
     
     
-st.write(selected_stock)
-st.write("Stock ticker: ", selected_stock[:3])
 
+st.write("Select Dates: ", select_dates)
+st.write("Stock ticker: ", selected_stock)
 
+# Get parameters from sidebar
+ticker = selected_stock[:3]
+start_date = select_dates[:10]
+end_date = select_dates[-10:]
+
+stock_df = get_stock_history_from_db(engine, ticker, start_date, end_date)
+st.dataframe(stock_df)
 
