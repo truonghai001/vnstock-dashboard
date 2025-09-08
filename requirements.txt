@@ -1,0 +1,7 @@
+pip
+plotly
+requests_cache
+scikit-learn
+seaborn
+matplotlib
+yfinance
