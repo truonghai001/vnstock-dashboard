@@ -74,7 +74,8 @@ if refresh:
         open=stock_df['open'],
         high=stock_df['high'],
         low=stock_df['low'],
-        close=stock_df['close']
+        close=stock_df['close'],
+        name="Candle Stick"
     ))
     
     # Add price line
@@ -98,7 +99,7 @@ if refresh:
             xanchor="right",
             x=1
         ),
-        height=600
+        height=900
     )
 
     st.plotly_chart(fig, use_container_width=True)
