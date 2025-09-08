@@ -77,7 +77,7 @@ def get_list_of_watch_stocks(_engine):
     select_query = f"""
         SELECT DISTINCT
             ws.ticker,
-            vs.organ_short_name AS short_namename,
+            vs.organ_short_name AS short_name,
             vs.exchange,
             vs.organ_name as full_name,
             vs.icb_name2 as Group_1,

@@ -22,7 +22,7 @@ with st.sidebar:
     st.sidebar.header("Stock Settings")
     
     # Timeframe selection
-    stock_list = [f"{row.ticker} - {row.shoer_name}" for row in watch_stocs_df]
+    stock_list = [f"{row.ticker} - {row.short_name}" for row in watch_stocs_df]
     selected_stock = st.selectbox("Select Ticker", stock_list, index=1)
     
     
