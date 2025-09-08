@@ -4,7 +4,7 @@ import pytz
 from sqlalchemy import create_engine, text
 import streamlit as st
 import pandas as pd
-from constants import *
+from codes.constants import *
 
 
 def connect_postgresql():
