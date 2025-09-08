@@ -13,8 +13,6 @@ DB_HOSTNAME = st.secrets["DB_HOSTNAME"]
 DB_PORTNUMBER = st.secrets["DB_PORTNUMBER"]
 DB_NAME = st.secrets["DB_NAME"]
 
-st.write("DB username:", st.secrets["db_username"])
-
 def connect_postgresql():
     # Create a connection string
     conn_string = f"postgresql+psycopg2://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOSTNAME}:{DB_PORTNUMBER}/{DB_NAME}?sslmode=require"
