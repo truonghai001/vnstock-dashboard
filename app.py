@@ -4,6 +4,10 @@ from codes.stock_utils import *
 # Create engine and connect to the database
 engine = connect_postgresql()
 
+# Get list of watch stocks
+watch_stocs_df = get_list_of_watch_stocks(engine);
+st.dataframe(watch_stocs_df)
+
 # set up page configuration
 st.set_page_config(
     page_title="VN Stock Dashboard",
@@ -18,7 +22,7 @@ with st.sidebar:
     st.sidebar.header("Stock Settings")
     
     # Timeframe selection
-    stock_list = get_list_of_watch_stocks(engine)
+    stock_list = [f"{row.ticker} - {row.shoer_name}" for row in watch_stocs_df]
     selected_stock = st.selectbox("Select Ticker", stock_list, index=1)
     
     

@@ -3,6 +3,7 @@ import pytz
 
 from sqlalchemy import create_engine, text
 import streamlit as st
+import pandas as pd
 
 
 # Read the database secrect from toml
@@ -76,17 +77,24 @@ def get_list_of_watch_stocks(_engine):
     select_query = f"""
         SELECT DISTINCT
             ws.ticker,
-            vs.organ_short_name AS name
+            vs.organ_short_name AS short_namename,
+            vs.exchange,
+            vs.organ_name as full_name,
+            vs.icb_name2 as Group_1,
+            vs.icb_name3 as Group_2,
+            vs.icb_name4 as Group_3
         FROM watch_stock ws
         LEFT JOIN vn_stock vs
         ON ws.ticker = vs.ticker
         WHERE ws.is_active
     """
-        
-    result_select = list()
+    
+    watch_stocks_df = pd.DataFrame
     with _engine.connect() as connection:
         # Example: SELECT query
-        query_select = text(select_query)
-        result_select = [f"{row.ticker} - {row.name}" for row in connection.execute(query_select)]
+        watch_stocks_df = pd.read_sql_query(
+            sql=text(select_query),
+            con=connection
+        )
         
-    return result_select
+    return watch_stocks_df
