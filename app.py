@@ -25,6 +25,7 @@ st.write("#📈 VN Stock Dashboard")
 today = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
 end_date = (today + timedelta(days=-1)).strftime('%Y-%m-%d')
 start_date = (today + timedelta(days=DAY_INTERVAL)).strftime('%Y-%m-%d')
+min_date = (today + timedelta(years=BACK_NUMBER_OF_YEARS)).strftime('%Y-%m-%d')
 
 # sidebar setting
 with st.sidebar:
@@ -38,6 +39,7 @@ with st.sidebar:
     select_dates = st.date_input(
         "Select Start & End Date: ",
         (start_date, end_date),
+        min_date, end_date,
         format="YYYY-MM-DD"
     )
     
