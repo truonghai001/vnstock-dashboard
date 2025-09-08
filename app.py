@@ -3,7 +3,7 @@ from codes.stock_utils import *
 from datetime import datetime, timedelta
 import pytz
 from codes.constants import *
-
+import plotly.graph_objects as go
 
 
 # Create engine and connect to the database
@@ -20,7 +20,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.write("#📈 VN Stock Dashboard")
+st.title("#📈 VN Stock Dashboard")
 
 today = datetime.now(pytz.timezone('Asia/Ho_Chi_Minh'))
 sb_end_date = (today + timedelta(days=-1)).strftime('%Y-%m-%d')
@@ -50,17 +50,28 @@ with st.sidebar:
     
 
 if refresh:
-    st.write("Select Dates: ", select_dates)
-    st.write("Stock ticker: ", selected_stock)
-
     # Get parameters from sidebar
     ticker = selected_stock[:3]
     start_date = select_dates[0].strftime('%Y-%m-%d')
     end_date = select_dates[1].strftime('%Y-%m-%d')
 
-    st.write("Start Date: ", start_date)
-    st.write("End Date: ", end_date)
+    st.write(f"Date Range: {start_date} - {end_date}")
+    st.write("Stock ticker: ", selected_stock)
 
     stock_df = get_stock_history_from_db(engine, ticker, start_date, end_date)
     st.dataframe(stock_df)
+    
+    st.subheader("Candlestick Plots")
+    # Create price chart with selected indicator
+    fig = go.Figure(
+        data=[go.Candlestick(
+            x=stock_df['Date'],
+            open=stock_df['Open'],
+            high=stock_df['High'],
+            low=stock_df['Low'],
+            close=stock_df['Close'])
+    ])
+    st.plotly_chart(fig, use_container_width=True)
+
+    
 
