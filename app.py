@@ -1,4 +1,5 @@
 import streamlit as st
+from codes.stock_utils import *
 
 # set up page configuration
 st.set_page_config(
@@ -9,7 +10,11 @@ st.set_page_config(
 
 st.write("#📈 VN Stock Dashboard")
 
-st.sidebar.success("Select a demo above.")
+# sidebar setting
+with st.sidebar:
+    st.sidebar.header("Stock Settings")
+    
+    # show list of tickers
 
 st.markdown(
     """
@@ -29,4 +34,7 @@ st.markdown(
 """
 )
 
-st.write("DB username:", st.secrets["db_username"])
+st.write("DB username:", st.secrets["DB_USERNAME"])
+
+# Create engine and connect to the database
+engine = connect_postgresql()
