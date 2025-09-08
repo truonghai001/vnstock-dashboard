@@ -8,3 +8,4 @@ yfinance
 psycopg2-binary
 sqlalchemy
 vnstock
+streamlit
